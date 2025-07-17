@@ -37,3 +37,6 @@ def get_pdf_text():
     excerpt = "\n".join(reader.pages[i].extract_text() for i in range(start, end))
 
     return jsonify({"partSpecText": excerpt.strip()})
+    
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=10000)
