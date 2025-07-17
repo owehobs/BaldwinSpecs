@@ -5,7 +5,7 @@ from PyPDF2 import PdfReader
 
 app = Flask(__name__)
 PDF_PATH = "BaldwinFilterGuide.pdf"
-PDF_URL = "https://drive.google.com/uc?export=download&id=1rFoOY6VKY5Ret3CWDxt1kgV0LS5_xn1Q"  # You'll host this somewhere
+PDF_URL = "https://drive.google.com/uc?export=download&id=1rFoOY6VKY5Ret3CWDxt1kgV0LS5_xn1Q"
 
 # Download the PDF once if not cached
 if not os.path.exists(PDF_PATH):
