@@ -1,8 +1,18 @@
+import os
+import requests
 from flask import Flask, request, jsonify
 from PyPDF2 import PdfReader
 
 app = Flask(__name__)
 PDF_PATH = "BaldwinFilterGuide.pdf"
+PDF_URL = "https://drive.google.com/uc?export=download&id=1rFoOY6VKY5Ret3CWDxt1kgV0LS5_xn1Q"  # You'll host this somewhere
+
+# Download the PDF once if not cached
+if not os.path.exists(PDF_PATH):
+    print("Downloading Baldwin PDF...")
+    r = requests.get(PDF_URL)
+    with open(PDF_PATH, "wb") as f:
+        f.write(r.content)
 
 @app.route("/get-pdf-text", methods=["GET"])
 def get_pdf_text():
@@ -21,7 +31,6 @@ def get_pdf_text():
     if not matches:
         return jsonify({"error": f"{part_number} not found"}), 404
 
-    # Extract 1 page before and after the first match (3-page window)
     start = max(0, matches[0] - 1)
     end = min(len(reader.pages), matches[0] + 2)
 
